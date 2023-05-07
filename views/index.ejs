@@ -1,0 +1,45 @@
+<%- include('partials/header'); -%>
+    <div class="container text-center">
+        <form id='form' action="/upload" method="post">
+            <div class="input-group">
+                <input id='files' type="file" multiple>
+            </div>
+            <div>
+                <label for="files">Upload files .xlsx or .xls here.</label> <br>
+                <button class="btn btn-success rounded-pill px-3" type='submit'>Upload</button>
+            </div>
+        </form>
+
+        <p id="m1"></p>
+        <h3 id="h1"></h3>
+        <p id="m3"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById("form");
+
+        form.addEventListener("submit", submitForm);
+
+        async function submitForm(e) {
+            e.preventDefault();
+            const files = document.getElementById("files");
+            const formData = new FormData();
+            for (let i = 0; i < files.files.length; i++) {
+                formData.append("files", files.files[i]);
+            }
+            const response = await fetch("/upload", {
+                method: 'POST',
+                body: formData
+            })
+
+            const res = await response.json();
+            document.getElementById('form').innerHTML = "";
+            document.getElementById('m1').innerHTML = "Thank You!";
+            document.getElementById('h1').innerHTML = res.msg;
+            document.getElementById('m3').innerHTML = 'Your records will be processed shortly.'
+            console.log(res)
+        }
+    </script>
+    <!-- </body>  -->
+
+    <%- include('partials/footer'); -%>

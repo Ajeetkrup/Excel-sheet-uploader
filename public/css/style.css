@@ -1,0 +1,10 @@
+#m1{
+    color: green;
+    font-weight: bolder;
+}
+
+button{
+    color: white;
+    background-color: green;
+    border-radius: 1 rem;
+}
